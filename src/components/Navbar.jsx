@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
 
 const NAV_LINKS = [
@@ -217,6 +218,7 @@ export default function Navbar() {
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
                 style={{ boxShadow: '0 0 8px rgba(74,222,128,0.9)' }}
               />
+              <BoltRoundedIcon fontSize="inherit" className="text-[0.8rem] text-emerald-200/85" />
               <span className="text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-emerald-200/85 sm:text-[0.62rem] lg:text-[0.65rem]">
                 Live
               </span>

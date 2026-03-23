@@ -1,4 +1,7 @@
 import { motion } from 'framer-motion'
+import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded'
+import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded'
+import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded'
 import SectionIntro from '../ui/SectionIntro'
 import Badge from '../ui/Badge'
 import Button from '../ui/Button'
@@ -33,9 +36,12 @@ export default function MenuSection({ menuRef, menu, onAddToCart }) {
             <div className="relative">
               {/* Category + prep — always one row */}
               <div className="flex items-center justify-between gap-2">
-                <Badge variant="neutral">{item.category}</Badge>
+                <Badge variant="neutral">
+                  <LocalDiningRoundedIcon fontSize="inherit" className="text-[0.92rem]" />
+                  {item.category}
+                </Badge>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.04] px-2.5 py-1 text-[0.65rem] font-medium text-slate-300/70 sm:px-3 sm:py-1.5 sm:text-xs">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/70" />
+                  <ScheduleRoundedIcon fontSize="inherit" className="text-[0.9rem] text-emerald-300/80" />
                   {item.prep} min
                 </span>
               </div>
@@ -55,8 +61,10 @@ export default function MenuSection({ menuRef, menu, onAddToCart }) {
                 <Button
                   variant="secondary"
                   compact
+                  className="gap-2"
                   onClick={() => onAddToCart(item)}
                 >
+                  <AddShoppingCartRoundedIcon fontSize="inherit" className="text-base" />
                   Add item
                 </Button>
               </div>

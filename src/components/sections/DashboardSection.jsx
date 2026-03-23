@@ -1,4 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import LocationSearchingRoundedIcon from '@mui/icons-material/LocationSearchingRounded'
+import NotificationsActiveRoundedIcon from '@mui/icons-material/NotificationsActiveRounded'
+import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
+import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded'
+import RouteRoundedIcon from '@mui/icons-material/RouteRounded'
 import Badge from '../ui/Badge'
 import Button from '../ui/Button'
 import { compactCard, sectionGap, sectionShell, softCard, surfaceCard } from '../ui/styles'
@@ -25,8 +30,8 @@ function ConsoleIdle({ onSimulateArrival }) {
             transition={{ duration: 2.8, repeat: Infinity, delay: index * 0.35, ease: 'easeInOut' }}
           />
         ))}
-        <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-brand/25 bg-brand/10 text-sm font-semibold text-brand-soft sm:h-[68px] sm:w-[68px]">
-          GPS
+        <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-brand/25 bg-brand/10 text-brand-soft sm:h-[68px] sm:w-[68px]">
+          <LocationSearchingRoundedIcon fontSize="inherit" className="text-[1.25rem] sm:text-[1.5rem]" />
         </div>
       </div>
 
@@ -36,7 +41,8 @@ function ConsoleIdle({ onSimulateArrival }) {
       <p className="mt-2 text-xs leading-6 text-slate-300/70 sm:mt-3 sm:text-sm sm:leading-7">
         The system is waiting for the customer to enter the preparation radius.
       </p>
-      <Button className="mt-5 w-full sm:mt-6 sm:w-auto" onClick={onSimulateArrival}>
+      <Button className="mt-5 w-full gap-2 sm:mt-6 sm:w-auto" onClick={onSimulateArrival}>
+        <LocationSearchingRoundedIcon fontSize="inherit" className="text-base" />
         Simulate 2 km arrival
       </Button>
     </motion.div>
@@ -57,6 +63,7 @@ function ConsoleTracking() {
         animate={{ y: [0, -4, 0] }}
         transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
       >
+        <RouteRoundedIcon fontSize="inherit" className="mr-1.5 text-[0.95rem]" />
         Live ETA syncing
       </motion.div>
       <strong className="mt-4 block font-display text-2xl tracking-[-0.05em] text-slate-50 sm:mt-5 sm:text-3xl">
@@ -94,6 +101,7 @@ function ConsoleAlert({ onResetAlert }) {
         animate={{ scale: [1, 1.07, 1] }}
         transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
       >
+        <NotificationsActiveRoundedIcon fontSize="inherit" className="mr-1.5 text-[0.95rem]" />
         Priority alert
       </motion.div>
       <strong className="mt-4 block font-display text-2xl tracking-[-0.05em] text-slate-50 sm:mt-5 sm:text-3xl">
@@ -103,7 +111,8 @@ function ConsoleAlert({ onResetAlert }) {
         Table 5 guest arrival is expected in about 4 minutes. Fire the order now for
         perfect timing.
       </p>
-      <Button variant="secondary" className="mt-5 w-full sm:mt-6 sm:w-auto" onClick={onResetAlert}>
+      <Button variant="secondary" className="mt-5 w-full gap-2 sm:mt-6 sm:w-auto" onClick={onResetAlert}>
+        <RouteRoundedIcon fontSize="inherit" className="text-base" />
         Reset demo
       </Button>
     </motion.div>
@@ -125,7 +134,10 @@ export default function DashboardSection({
     <section id="dashboard" className={`${sectionShell} ${sectionGap} grid gap-4 sm:gap-5 xl:grid-cols-2`}>
       {/* Settlement card */}
       <div className={`${surfaceCard} p-5 sm:p-7 lg:p-8`}>
-        <Badge>Settlement view</Badge>
+        <Badge>
+          <ReceiptLongRoundedIcon fontSize="inherit" className="text-[0.95rem]" />
+          Settlement view
+        </Badge>
         <h2 className="mt-3 font-display text-3xl tracking-[-0.04em] text-slate-50 sm:mt-4 sm:text-4xl lg:text-5xl">
           Transparent payment split for hotel teams
         </h2>
@@ -174,7 +186,8 @@ export default function DashboardSection({
 
             <div className="relative overflow-hidden rounded-[18px] border border-emerald-300/15 bg-[linear-gradient(135deg,rgba(52,211,153,0.1),rgba(16,185,129,0.05))] p-4 sm:rounded-[20px] sm:p-5">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent" />
-              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-emerald-300/80 sm:text-xs">
+              <p className="flex items-center gap-1.5 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-emerald-300/80 sm:text-xs">
+                <PaymentsRoundedIcon fontSize="inherit" className="text-[0.92rem]" />
                 Hotel receives
               </p>
               <strong className="mt-1.5 block font-display text-3xl tracking-[-0.05em] text-emerald-200 sm:mt-2 sm:text-4xl">
@@ -190,7 +203,10 @@ export default function DashboardSection({
 
       {/* Kitchen trigger card */}
       <div className={`${surfaceCard} p-5 sm:p-7 lg:p-8`}>
-        <Badge variant="warm">Kitchen trigger demo</Badge>
+        <Badge variant="warm">
+          <NotificationsActiveRoundedIcon fontSize="inherit" className="text-[0.95rem]" />
+          Kitchen trigger demo
+        </Badge>
         <h2 className="mt-3 font-display text-3xl tracking-[-0.04em] text-slate-50 sm:mt-4 sm:text-4xl lg:text-5xl">
           Live arrival alerts tell the kitchen exactly when to start.
         </h2>
