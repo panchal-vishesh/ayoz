@@ -1,5 +1,5 @@
 const variants = {
-  warm: 'border border-brand/20 bg-[linear-gradient(135deg,rgba(138,164,255,0.12),rgba(138,164,255,0.06))] text-brand-soft',
+  warm: 'border border-brand/20 bg-[linear-gradient(135deg,rgba(255,107,26,0.12),rgba(255,107,26,0.06))] text-brand-soft',
   cool: 'border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] text-slate-200',
   neutral: 'border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.04),rgba(255,255,255,0.018))] text-slate-300/90',
 }

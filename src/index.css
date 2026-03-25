@@ -5,9 +5,10 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "Plus Jakarta Sans", sans-serif;
 
-  --color-brand: #8aa4ff;
-  --color-brand-soft: #c7d4ff;
-  --color-midnight: #060816;
+  --color-brand: #FF6B1A;
+  --color-brand-soft: #FFB347;
+  --color-midnight: #1C1C1E;
+  --color-charcoal: #1C1C1E;
 
   --breakpoint-xs: 480px;
 }
@@ -26,7 +27,7 @@
   }
 
   ::selection {
-    background: rgba(138, 164, 255, 0.28);
+    background: rgba(255, 107, 26, 0.28);
     color: #fff;
   }
 
@@ -35,7 +36,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #060816;
+    background: #1C1C1E;
   }
 
   ::-webkit-scrollbar-thumb {

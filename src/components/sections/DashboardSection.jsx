@@ -131,9 +131,9 @@ export default function DashboardSection({
   onResetAlert,
 }) {
   return (
-    <section id="dashboard" className={`${sectionShell} ${sectionGap} grid gap-4 sm:gap-5 xl:grid-cols-2`}>
+    <section id="dashboard" className={`${sectionShell} ${sectionGap} grid gap-4 sm:gap-5 xl:grid-cols-2 xl:items-start`}>
       {/* Settlement card */}
-      <div className={`${surfaceCard} p-5 sm:p-7 lg:p-8`}>
+      <div className={`${surfaceCard} p-4 sm:p-5`}>
         <Badge>
           <ReceiptLongRoundedIcon fontSize="inherit" className="text-[0.95rem]" />
           Settlement view
@@ -147,7 +147,7 @@ export default function DashboardSection({
         </p>
 
         {cart.length === 0 ? (
-          <div className={`${compactCard} mt-5 p-4 sm:mt-6 sm:p-5`}>
+          <div className={`${compactCard} mt-4 p-4`}>
             <strong className="block text-base font-semibold text-slate-50 sm:text-lg">
               No order yet
             </strong>
@@ -156,7 +156,7 @@ export default function DashboardSection({
             </p>
           </div>
         ) : (
-          <div className={`${compactCard} mt-5 space-y-3.5 p-4 sm:mt-6 sm:space-y-4 sm:p-5`}>
+          <div className={`${compactCard} mt-4 space-y-3 p-4`}>
             {cart.map((item) => (
               <div
                 key={item.id}
@@ -202,7 +202,7 @@ export default function DashboardSection({
       </div>
 
       {/* Kitchen trigger card */}
-      <div className={`${surfaceCard} p-5 sm:p-7 lg:p-8`}>
+      <div className={`${surfaceCard} p-4 sm:p-5`}>
         <Badge variant="warm">
           <NotificationsActiveRoundedIcon fontSize="inherit" className="text-[0.95rem]" />
           Kitchen trigger demo
@@ -215,9 +215,9 @@ export default function DashboardSection({
         </p>
 
         <div
-          className={`${softCard} mt-5 min-h-[240px] p-5 sm:mt-6 sm:min-h-[280px] sm:p-6 ${
+          className={`${softCard} mt-4 p-4 sm:p-5 ${
             alert
-              ? 'border-brand/25 bg-[linear-gradient(135deg,rgba(93,126,255,0.14),rgba(138,164,255,0.08))] shadow-[0_0_0_1px_rgba(138,164,255,0.12),0_24px_60px_rgba(28,45,110,0.25)]'
+              ? 'border-brand/25 bg-[linear-gradient(135deg,rgba(255,107,26,0.14),rgba(255,179,71,0.08))] shadow-[0_0_0_1px_rgba(255,107,26,0.12),0_24px_60px_rgba(80,30,0,0.25)]'
               : ''
           }`}
         >

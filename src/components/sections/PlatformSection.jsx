@@ -18,12 +18,12 @@ export default function PlatformSection({ featureCards }) {
   return (
     <section id="platform" className={`${sectionShell} ${sectionGap}`}>
       <SectionIntro
-        badge="Core platform"
-        title="Built for restaurants that want speed, control, and better guest satisfaction."
-        description="The platform helps teams reduce wait time while keeping revenue and kitchen timing under control."
+        badge="What we do"
+        title="Order food. We cook it. You eat hot."
+        description="Guests order from their phone before they come. We tell the kitchen when to start. No waiting."
       />
 
-      <div className="mt-8 grid gap-3 sm:mt-10 sm:gap-4 lg:grid-cols-2">
+      <div className="mt-7 grid gap-3 sm:mt-8 sm:gap-4 lg:grid-cols-2">
         {featureCards.map((feature, index) => {
           const Icon = featureIcons[index % featureIcons.length]
 
@@ -34,20 +34,20 @@ export default function PlatformSection({ featureCards }) {
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.45, delay: index * 0.08 }}
-              whileHover={{ y: -6, scale: 1.01 }}
-              className={`${softCard} ${cardHover} relative overflow-hidden p-5 sm:p-7`}
+              transition={{ duration: 0.4, delay: index * 0.07 }}
+              whileHover={{ y: -5, scale: 1.01 }}
+              className={`${softCard} ${cardHover} relative overflow-hidden p-5 sm:p-6`}
             >
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(138,164,255,0.07),transparent)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(255,107,26,0.07),transparent)]" />
               <div className="relative">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand/20 to-brand/5 text-brand-soft ring-1 ring-brand/20 sm:h-11 sm:w-11">
-                  <Icon fontSize="inherit" className="text-[1.15rem] sm:text-[1.3rem]" />
+                  <Icon fontSize="inherit" className="text-[1.2rem]" />
                 </span>
-                <h3 className="mt-4 font-display text-xl tracking-[-0.04em] text-slate-50 sm:mt-5 sm:text-2xl">
+                <h3 className="mt-3 font-display text-lg tracking-[-0.03em] text-slate-50 sm:mt-4 sm:text-xl">
                   {feature.title}
                 </h3>
-                <p className="mt-2 text-xs leading-6 text-slate-300/70 sm:mt-3 sm:text-sm sm:leading-7">
+                <p className="mt-2 text-xs leading-6 text-slate-300/70 sm:text-sm sm:leading-7">
                   {feature.text}
                 </p>
               </div>

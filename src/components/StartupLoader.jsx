@@ -25,20 +25,20 @@ export default function StartupLoader({ isVisible, progress }) {
       {isVisible ? (
         <motion.div
           key="startup-loader"
-          className="fixed inset-0 z-[120] flex items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,rgba(79,143,255,0.14),transparent_28%),radial-gradient(circle_at_bottom,rgba(255,155,70,0.08),transparent_24%),linear-gradient(180deg,#050813_0%,#091021_100%)] px-4"
+          className="fixed inset-0 z-[120] flex items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,rgba(255,107,26,0.14),transparent_28%),radial-gradient(circle_at_bottom,rgba(255,179,71,0.08),transparent_24%),linear-gradient(180deg,#1C1C1E_0%,#141416_100%)] px-4"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.28, ease: 'easeOut' } }}
         >
           <motion.div
             aria-hidden="true"
-            className="absolute -left-16 top-12 h-32 w-32 rounded-full bg-sky-400/10 blur-[80px]"
+            className="absolute -left-16 top-12 h-32 w-32 rounded-full bg-orange-400/10 blur-[80px]"
             animate={{ x: [0, 18, 0], y: [0, 14, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
           />
 
           <motion.div
-            className="relative w-full max-w-[16.5rem] overflow-hidden rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(14,20,36,0.94),rgba(9,14,27,0.9))] p-4 text-center shadow-[0_18px_56px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:max-w-[17rem]"
+            className="relative w-full max-w-[16.5rem] overflow-hidden rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(28,28,30,0.94),rgba(20,20,22,0.9))] p-4 text-center shadow-[0_18px_56px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:max-w-[17rem]"
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.35, ease: 'easeOut' } }}
             exit={{ opacity: 0, y: 10, scale: 0.985, transition: { duration: 0.2 } }}
@@ -62,13 +62,13 @@ export default function StartupLoader({ isVisible, progress }) {
             >
               <motion.div
                 aria-hidden="true"
-                className="absolute inset-[-7px] rounded-full border border-sky-300/20"
+                className="absolute inset-[-7px] rounded-full border border-orange-300/20"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
               />
               <motion.div
                 aria-hidden="true"
-                className="absolute inset-[-10px] rounded-full bg-sky-400/8 blur-md"
+                className="absolute inset-[-10px] rounded-full bg-orange-400/8 blur-md"
                 animate={{ scale: [0.96, 1.06, 0.96], opacity: [0.35, 0.55, 0.35] }}
                 transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
               />
@@ -86,6 +86,9 @@ export default function StartupLoader({ isVisible, progress }) {
             <h1 className="mt-4 font-display text-[1.1rem] tracking-[-0.05em] text-white">
               Launching AyoZ
             </h1>
+            <p className="mt-0.5 text-[0.55rem] font-semibold uppercase tracking-[0.2em] text-orange-400/70">
+              Stop the Queue Not the Taste
+            </p>
             <p className="mt-1 text-[0.7rem] uppercase tracking-[0.24em] text-slate-400">
               {status}
             </p>
@@ -93,7 +96,7 @@ export default function StartupLoader({ isVisible, progress }) {
             <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/[0.08]">
               <div className="relative h-full overflow-hidden rounded-full">
                 <motion.div
-                  className="h-full rounded-full bg-[linear-gradient(90deg,#ff9b46_0%,#7ac4ff_100%)]"
+                  className="h-full rounded-full bg-[linear-gradient(90deg,#FF6B1A_0%,#FFB347_100%)]"
                   animate={{ width: `${roundedProgress}%` }}
                   transition={{ duration: 0.18, ease: 'easeOut' }}
                 />

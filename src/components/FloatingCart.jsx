@@ -10,7 +10,7 @@ export default function FloatingCart({ itemCount, total, isVisible, onClose }) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -80, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 340, damping: 30 }}
-          className="fixed left-1/2 top-3 z-40 flex w-[calc(100%-1.5rem)] max-w-sm -translate-x-1/2 items-center justify-between gap-3 rounded-2xl border border-white/[0.09] bg-[linear-gradient(145deg,rgba(7,16,31,0.97),rgba(6,8,22,0.99))] px-4 py-3 shadow-[0_20px_56px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-2xl sm:top-4 sm:max-w-md sm:rounded-[22px] sm:px-5"
+          className="fixed left-1/2 top-3 z-40 flex w-[calc(100%-1.5rem)] max-w-sm -translate-x-1/2 items-center justify-between gap-3 rounded-2xl border border-white/[0.09] bg-[linear-gradient(145deg,rgba(28,28,30,0.97),rgba(20,20,22,0.99))] px-4 py-3 shadow-[0_20px_56px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-2xl sm:top-4 sm:max-w-md sm:rounded-[22px] sm:px-5"
         >
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand/15 ring-1 ring-brand/25">

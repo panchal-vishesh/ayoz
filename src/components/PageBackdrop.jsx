@@ -11,7 +11,7 @@ export default function PageBackdrop() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 bg-midnight" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(138,164,255,0.18),transparent_24%),radial-gradient(circle_at_top_right,rgba(76,101,213,0.12),transparent_20%),linear-gradient(180deg,#060816_0%,#090d1b_48%,#060816_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,107,26,0.18),transparent_24%),radial-gradient(circle_at_top_right,rgba(200,80,20,0.10),transparent_20%),linear-gradient(180deg,#1C1C1E_0%,#141416_48%,#1C1C1E_100%)]" />
       <div className="absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:linear-gradient(180deg,black,transparent_85%)]" />
 
       <motion.div
@@ -20,7 +20,7 @@ export default function PageBackdrop() {
         transition={orbTransition}
       />
       <motion.div
-        className="absolute -right-20 top-24 h-80 w-80 rounded-full bg-[#4660df]/20 blur-[110px]"
+        className="absolute -right-20 top-24 h-80 w-80 rounded-full bg-orange-700/15 blur-[110px]"
         animate={{ x: [0, -26, 0], y: [0, 28, 0] }}
         transition={{ ...orbTransition, duration: 16 }}
       />

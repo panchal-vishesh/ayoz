@@ -58,8 +58,8 @@ function ScrollProgress() {
 
   return (
     <motion.div
-      className="absolute bottom-0 left-0 h-[2px] rounded-full bg-gradient-to-r from-brand via-brand-soft to-brand"
-      style={{ scaleX: progress, transformOrigin: '0%' }}
+      style={{ scaleX: progress, transformOrigin: '0%', background: 'linear-gradient(90deg, #FF6B1A, #FFB347, #FF6B1A)' }}
+      className="absolute bottom-0 left-0 h-[2px] rounded-full"
     />
   )
 }
@@ -103,13 +103,13 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 280, damping: 26, delay: 0.1 }}
-        className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-3.5 lg:px-8 lg:pt-5"
+        className="fixed inset-x-0 top-0 z-50 px-3 pt-2 sm:px-4 sm:pt-2.5 lg:px-8 lg:pt-3"
       >
         <nav
           className={`relative mx-auto flex max-w-7xl items-center justify-between overflow-hidden rounded-2xl border px-3 py-2.5 backdrop-blur-2xl transition-all duration-500 sm:rounded-[26px] sm:px-4 sm:py-3 lg:px-6 lg:py-3.5 ${
             scrolled
-              ? 'border-white/[0.12] bg-[linear-gradient(145deg,rgba(5,8,20,0.96),rgba(6,8,22,0.94))] shadow-[0_20px_60px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]'
-              : 'border-white/[0.07] bg-[linear-gradient(145deg,rgba(5,8,20,0.6),rgba(6,8,22,0.5))] shadow-[0_8px_32px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.05)]'
+              ? 'border-white/[0.12] bg-[linear-gradient(145deg,rgba(28,28,30,0.96),rgba(20,20,22,0.94))] shadow-[0_20px_60px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]'
+              : 'border-white/[0.07] bg-[linear-gradient(145deg,rgba(28,28,30,0.6),rgba(20,20,22,0.5))] shadow-[0_8px_32px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.05)]'
           }`}
         >
           <ScrollProgress />
@@ -130,16 +130,16 @@ export default function Navbar() {
               <img
                 src="https://res.cloudinary.com/dja9q2ii9/image/upload/e_bgremoval/v1774270172/ayoz_hqv2rf.png"
                 alt="AyoZ"
-                className="h-8 w-auto drop-shadow-[0_4px_12px_rgba(138,164,255,0.3)] sm:h-9 lg:h-10"
-                style={{ mixBlendMode: 'normal' }}
+                className="h-8 w-auto sm:h-9 lg:h-10"
+                style={{ filter: 'drop-shadow(0 0 8px rgba(255,107,26,0.6)) brightness(1.2)', mixBlendMode: 'normal' }}
               />
             </motion.div>
             <div className="text-left">
               <p className="font-display text-sm tracking-[-0.05em] text-slate-50 sm:text-base lg:text-[1.05rem]">
                 AyoZ
               </p>
-              <p className="text-[0.5rem] font-semibold uppercase tracking-[0.25em] text-slate-400/55 sm:text-[0.55rem]">
-                Premium Dining
+              <p className="text-[0.45rem] font-semibold uppercase tracking-[0.18em] text-slate-400/55 sm:text-[0.5rem]">
+                Stop the Queue Not the Taste
               </p>
             </div>
           </motion.button>
@@ -260,7 +260,7 @@ export default function Navbar() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: '100%', opacity: 0 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed inset-y-0 right-0 z-[70] flex w-[min(300px,85vw)] flex-col border-l border-white/[0.08] bg-[linear-gradient(160deg,rgba(9,13,30,0.99),rgba(6,8,22,1))] shadow-[-32px_0_80px_rgba(0,0,0,0.7)]"
+              className="fixed inset-y-0 right-0 z-[70] flex w-[min(300px,85vw)] flex-col border-l border-white/[0.08] bg-[linear-gradient(160deg,rgba(28,28,30,0.99),rgba(20,20,22,1))] shadow-[-32px_0_80px_rgba(0,0,0,0.7)]"
             >
               {/* Top glow */}
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
@@ -278,13 +278,14 @@ export default function Navbar() {
                     <img
                       src="https://res.cloudinary.com/dja9q2ii9/image/upload/e_bgremoval/v1774270172/ayoz_hqv2rf.png"
                       alt="AyoZ"
-                      className="h-8 w-auto drop-shadow-[0_4px_12px_rgba(138,164,255,0.25)]"
+                      className="h-8 w-auto"
+                      style={{ filter: 'drop-shadow(0 0 8px rgba(255,107,26,0.6)) brightness(1.2)' }}
                     />
                   </div>
                   <div>
                     <p className="font-display text-sm tracking-[-0.04em] text-slate-50">AyoZ</p>
-                    <p className="text-[0.5rem] font-semibold uppercase tracking-[0.24em] text-slate-400/55">
-                      Premium Dining
+                    <p className="text-[0.45rem] font-semibold uppercase tracking-[0.16em] text-slate-400/55">
+                      Stop the Queue Not the Taste
                     </p>
                   </div>
                 </motion.div>

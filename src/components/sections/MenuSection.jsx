@@ -13,13 +13,13 @@ export default function MenuSection({ menuRef, menu, onAddToCart }) {
   return (
     <section id="menu" ref={menuRef} className={`${sectionShell} ${sectionGap}`}>
       <SectionIntro
-        badge="Interactive menu"
+        badge="Our menu"
         badgeVariant="warm"
-        title="See how the guest-side ordering flow works."
-        description="Guests can browse dishes, review preparation timing, and pre-build the order before they arrive, so the restaurant gets a cleaner and faster service start."
+        title="Pick your food before you arrive."
+        description="Choose what you want, pay online, and your food will be ready when you get here."
       />
 
-      <div className="mt-8 grid gap-3 sm:mt-10 sm:gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-7 grid gap-3 sm:mt-8 sm:gap-4 md:grid-cols-2 xl:grid-cols-3">
         {menu.map((item, index) => (
           <motion.article
             key={item.id}
@@ -32,7 +32,7 @@ export default function MenuSection({ menuRef, menu, onAddToCart }) {
             className={`${softCard} ${cardHover} relative overflow-hidden p-5 sm:p-6`}
           >
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/35 to-transparent" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_50%_0%,rgba(138,164,255,0.06),transparent)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_50%_0%,rgba(255,107,26,0.06),transparent)]" />
             <div className="relative">
               {/* Category + prep — always one row */}
               <div className="flex items-center justify-between gap-2">

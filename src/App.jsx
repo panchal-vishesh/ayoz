@@ -4,6 +4,7 @@ import FloatingCart from './components/FloatingCart'
 import Navbar from './components/Navbar'
 import PageBackdrop from './components/PageBackdrop'
 import StartupLoader from './components/StartupLoader'
+import ToastContainer from './components/ToastContainer'
 import DashboardSection from './components/sections/DashboardSection'
 import DeviceSection from './components/sections/DeviceSection'
 import HeroSection from './components/sections/HeroSection'
@@ -21,12 +22,15 @@ import {
   statCards,
 } from './data/siteContent'
 import { beep } from './utils/audio'
+import { useToast } from './utils/useToast'
 
 export default function App() {
   const menuRef = useRef(null)
   const journeyRef = useRef(null)
   const arrivalTimerRef = useRef(null)
   const beepTimerRef = useRef(null)
+
+  const { toasts, toast } = useToast()
 
   const [cart, setCart] = useState([])
   const [simulating, setSimulating] = useState(false)
@@ -126,16 +130,15 @@ export default function App() {
 
   const addToCart = (item) => {
     setCartDismissed(false)
-
     setCart((current) => {
       const existing = current.find((entry) => entry.id === item.id)
-
       if (existing) {
+        toast(`${item.name} qty updated`, 'success')
         return current.map((entry) =>
           entry.id === item.id ? { ...entry, qty: entry.qty + 1 } : entry,
         )
       }
-
+      toast(`${item.name} added to cart`, 'success')
       return [...current, { ...item, qty: 1 }]
     })
   }
@@ -150,11 +153,13 @@ export default function App() {
   const simulateArrival = () => {
     resetAlert()
     setSimulating(true)
+    toast('Tracking guest location...', 'info')
 
     arrivalTimerRef.current = window.setTimeout(() => {
       setSimulating(false)
       setAlert(true)
       beep()
+      toast('Guest is nearby — start cooking now!', 'alert', 4000)
 
       beepTimerRef.current = window.setTimeout(() => {
         beep()
@@ -179,6 +184,7 @@ export default function App() {
           isBooting ? 'opacity-0' : 'opacity-100'
         }`}
       >
+        <ToastContainer toasts={toasts} />
         <PageBackdrop />
         <Navbar />
         <FloatingCart

@@ -1,6 +1,6 @@
 const variants = {
   primary:
-    'relative overflow-hidden border border-brand/30 bg-[linear-gradient(135deg,#9cb4ff_0%,#7d9cff_52%,#6d89ff_100%)] text-[#050712] shadow-[0_20px_40px_rgba(90,117,225,0.26)] hover:shadow-[0_24px_48px_rgba(90,117,225,0.34)]',
+    'relative overflow-hidden border border-brand/30 bg-[linear-gradient(135deg,#FF8C42_0%,#FF6B1A_52%,#e85d0f_100%)] text-white shadow-[0_20px_40px_rgba(255,107,26,0.26)] hover:shadow-[0_24px_48px_rgba(255,107,26,0.38)]',
   secondary:
     'border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.025))] text-slate-100 hover:border-brand/22 hover:bg-white/[0.07]',
 }

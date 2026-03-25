@@ -2,92 +2,94 @@ export const menu = [
   {
     id: 1,
     name: 'Signature Alfredo Pasta',
-    price: 280,
+    price: 279,
     prep: 12,
     category: 'Fast-moving',
-    note: 'High margin pasta bowl with predictable prep time.',
+    note: 'Creamy pasta. Ready in 12 mins. Guests love it.',
   },
   {
     id: 2,
     name: 'Tandoori Paneer Tikka',
-    price: 220,
+    price: 219,
     prep: 8,
     category: 'Starter',
-    note: 'Quick to fire when the guest is almost at the table.',
+    note: 'Hot paneer from the tandoor. Quick to make.',
   },
   {
     id: 3,
-    name: 'Classic Chicken Biryani',
-    price: 350,
+    name: 'Malai Kofta',
+    price: 249,
     prep: 18,
     category: 'Hero dish',
-    note: 'Best seller with prep alerts that reduce table waiting.',
+    note: 'Our most ordered dish. Always served hot.',
   },
 ]
 
 export const statCards = [
-  { value: '30%', label: 'Faster table turnover', detail: 'Ordering starts before the guest sits down.' },
-  { value: '0%', label: 'No-show food loss', detail: 'Prepaid reservations protect kitchen planning.' },
-  { value: '24h', label: 'Settlement cycle', detail: 'Clear split between hotel revenue and platform fee.' },
+  { value: '30%', label: 'Faster service', detail: 'Food is ready when guests sit down.' },
+  { value: '0%', label: 'Cold food', detail: 'Kitchen cooks at the right time, every time.' },
+  { value: '24h', label: 'Fast payout', detail: 'Restaurants get paid the next day.' },
 ]
 
 export const featureCards = [
   {
-    title: 'Pre-order before arrival',
-    text: 'Guests book a table, choose dishes, and pay in advance so service begins before check-in at the table.',
+    title: 'Order food before you arrive',
+    text: 'Guests pick their food and pay from their phone. No waiting at the table.',
   },
   {
-    title: 'GPS-triggered kitchen alerts',
-    text: 'The kitchen receives a start-cooking signal when the customer is close enough for ideal plating time.',
+    title: 'Kitchen starts cooking at the right time',
+    text: 'We track where the guest is. When they are close, the kitchen gets an alert to start cooking.',
   },
   {
-    title: 'Transparent hotel payouts',
-    text: 'Each order shows the item subtotal, platform fee, tax, and the exact amount the hotel keeps.',
+    title: 'See exactly what you earn',
+    text: 'Restaurants see the food price, our fee, tax, and their money all in one place.',
   },
   {
-    title: 'Performance analytics',
-    text: 'Track prep times, top dishes, peak arrival windows, and how much waiting time is removed.',
+    title: 'See your best dishes and busy times',
+    text: 'Find out which food sells most, how fast it is made, and when your place gets busy.',
   },
 ]
 
 export const journey = [
   {
     step: '01',
-    title: 'Book and prepay',
-    text: 'The guest chooses a slot, confirms the menu, and pays online before leaving for the restaurant.',
+    title: 'Guest picks food and pays',
+    text: 'Before leaving home, the guest opens the app, picks their food, and pays online.',
   },
   {
     step: '02',
-    title: 'Track the arrival window',
-    text: 'AyoZ monitors the live distance so the staff knows when the guest is 2 km, 1 km, and almost at the property.',
+    title: 'We track where they are',
+    text: 'AyoZ watches how far the guest is. 5 km, 2 km, almost there.',
   },
   {
     step: '03',
-    title: 'Start cooking at the right moment',
-    text: 'The kitchen dashboard pushes a ready-to-fire alert based on prep time instead of guesswork.',
+    title: 'Kitchen gets a start alert',
+    text: 'When the guest is close enough, the chef gets a message to start cooking.',
   },
   {
     step: '04',
-    title: 'Serve with zero waiting',
-    text: 'Food lands on the table quickly, improving guest satisfaction and increasing available table capacity.',
+    title: 'Food is ready when they sit',
+    text: 'Guest walks in, sits down, food arrives. No waiting. No cold food.',
   },
 ]
 
 export const analytics = [
-  ['Peak hour accuracy', 'Know exactly when demand converts to real seated guests.'],
-  ['Menu intelligence', 'Compare dishes by prep time, popularity, and payout contribution.'],
-  ['Operations control', 'Spot delays early and rebalance kitchen load before service suffers.'],
+  ['Top dishes', 'See which food sells the most and makes the most money.'],
+  ['Kitchen speed', 'See how fast each dish is made and where things slow down.'],
+  ['Busy hours', 'Know when your place gets full so you can be ready.'],
 ]
 
 export const premiumSignals = [
-  'Mobile-first premium design',
-  'Adaptive layout for every screen',
-  'Animated guest-to-kitchen flow',
-  'Fast-loading glass UI cards',
+  'Order before you arrive',
+  'GPS kitchen alerts',
+  'Hot food every time',
+  'Pay online, skip the wait',
+  'Zero queue dining',
+  'Smart food ordering',
 ]
 
 export const deviceCards = [
-  ['Phone optimized', 'Compact spacing, touch-friendly CTAs, and readable premium typography.'],
-  ['Tablet ready', 'Balanced card layouts for iPad and medium-width restaurant displays.'],
-  ['Desktop polished', 'Wide analytics presentation with richer visual hierarchy and motion.'],
+  ['Order from your phone', 'Guests pick food and pay before they leave home. Simple and fast.'],
+  ['Manage orders on a tablet', 'Staff see live orders and when guests are coming. Easy to use.'],
+  ['Cook alerts on a big screen', 'Chefs see which dish to cook and how much time is left.'],
 ]
