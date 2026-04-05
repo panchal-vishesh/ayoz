@@ -1,106 +1,10 @@
-function isLocalHostname(hostname) {
-  const value = String(hostname ?? '').toLowerCase()
-
-  if (value === 'localhost' || value === '127.0.0.1' || value === '::1') {
-    return true
-  }
-
-  if ((value && !value.includes('.')) || value.endsWith('.local')) {
-    return true
-  }
-
-  const parts = value.split('.').map((part) => Number.parseInt(part, 10))
-
-  if (parts.length !== 4 || parts.some((part) => !Number.isInteger(part) || part < 0 || part > 255)) {
-    return false
-  }
-
-  const [first, second] = parts
-
-  return (
-    first === 127 ||
-    first === 10 ||
-    (first === 192 && second === 168) ||
-    (first === 172 && second >= 16 && second <= 31)
-  )
-}
-
-function createAlternateApiBase(baseUrl, hostname) {
-  try {
-    const url = new URL(baseUrl)
-    url.hostname = hostname
-    return url.toString().replace(/\/$/, '')
-  } catch {
-    return ''
-  }
-}
-
 function resolveApiBase() {
-  const browserOrigin =
-    typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173'
-  const browserHostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost'
   const configuredBase = import.meta.env.VITE_API_URL || 'http://localhost:4000'
-
-  try {
-    const url = new URL(configuredBase, browserOrigin)
-
-    if (isLocalHostname(browserHostname) && isLocalHostname(url.hostname)) {
-      url.hostname = browserHostname
-    }
-
-    return url.toString().replace(/\/$/, '')
-  } catch {
-    return configuredBase.replace(/\/$/, '')
-  }
-}
-
-function getFallbackApiBases(currentBase) {
-  if (typeof window === 'undefined') {
-    return []
-  }
-
-  try {
-    const currentUrl = new URL(currentBase)
-    const browserHostname = window.location.hostname
-    const candidates = []
-
-    if (browserHostname && browserHostname !== currentUrl.hostname) {
-      candidates.push(createAlternateApiBase(currentBase, browserHostname))
-    }
-
-    if (browserHostname !== '127.0.0.1') {
-      candidates.push(createAlternateApiBase(currentBase, '127.0.0.1'))
-    }
-
-    if (browserHostname !== 'localhost') {
-      candidates.push(createAlternateApiBase(currentBase, 'localhost'))
-    }
-
-    return candidates.filter(
-      (candidate, index, list) =>
-        candidate && candidate !== currentBase && list.indexOf(candidate) === index,
-    )
-  } catch {
-    return []
-  }
+  return configuredBase.replace(/\/$/, '')
 }
 
 async function fetchWithFallback(path, options) {
-  try {
-    return await fetch(`${apiBase}${path}`, options)
-  } catch (error) {
-    for (const nextBase of getFallbackApiBases(apiBase)) {
-      try {
-        const response = await fetch(`${nextBase}${path}`, options)
-        apiBase = nextBase
-        return response
-      } catch {
-        // try next local candidate
-      }
-    }
-
-    throw error
-  }
+  return fetch(`${apiBase}${path}`, options)
 }
 
 let apiBase = resolveApiBase()
