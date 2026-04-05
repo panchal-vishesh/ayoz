@@ -1,0 +1,19 @@
+# Environment — never commit real env files
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Dependencies
+node_modules/
+
+# Tests
+tests/
+
+# Build
+dist/
+

@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+
+  --color-brand:      #FF6B1A;
+  --color-brand-soft: #FFB347;
+  --color-brand-dim:  #E55A12;
+
+  --color-ink:        #0B0F1A;
+  --color-midnight:   #101726;
+  --color-charcoal:   #151D2E;
+  --color-surface:    #1A2236;
+  --color-border:     #1F2A3D;
+
+  --breakpoint-xs: 480px;
+}
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  html { scroll-behavior: smooth; overflow-y: auto; }
+
+  body {
+    @apply min-w-[320px] font-body antialiased;
+    color: #CBD5E1;
+    background-color: #0B0F1A;
+  }
+
+  /* subtle noise texture for tactile feel */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    overflow: hidden;
+  }
+
+  ::selection {
+    background: rgba(255,107,26,0.25);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar { width: 0.35rem; }
+  ::-webkit-scrollbar-track { background: #0B0F1A; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,107,26,0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,107,26,0.45);
+  }
+}
+
+/* ── Role accent tokens ─────────────────────────────────────── */
+[data-role="admin"] {
+  --role-accent:      #0F2A44;
+  --role-accent-soft: #CBD5E1;
+  --role-glow:        rgba(15,42,68,0.30);
+  --role-border:      rgba(31,42,61,0.80);
+  --role-bg:          rgba(15,23,42,0.60);
+  --role-gradient:    linear-gradient(135deg,#0f2a44 0%,#0b0f1a 100%);
+  --role-badge-bg:    rgba(15,42,68,0.20);
+  --role-badge-text:  #CBD5E1;
+}
+
+[data-role="restaurant"] {
+  --role-accent:      #FF6B1A;
+  --role-accent-soft: #FFB347;
+  --role-glow:        rgba(255,107,26,0.20);
+  --role-border:      rgba(255,107,26,0.24);
+  --role-bg:          rgba(255,107,26,0.07);
+  --role-gradient:    linear-gradient(135deg,#1a1008 0%,#0b0f1a 100%);
+  --role-badge-bg:    rgba(255,107,26,0.12);
+  --role-badge-text:  #FFB347;
+}
+
+[data-role="customer"] {
+  --role-accent:      #FF6B1A;
+  --role-accent-soft: #FFB347;
+  --role-glow:        rgba(255,107,26,0.20);
+  --role-border:      rgba(255,107,26,0.24);
+  --role-bg:          rgba(255,107,26,0.07);
+  --role-gradient:    linear-gradient(135deg,#1a1008 0%,#0b0f1a 100%);
+  --role-badge-bg:    rgba(255,107,26,0.12);
+  --role-badge-text:  #FFB347;
+}
+
+/* ── Role-accent utility classes ────────────────────────────── */
+.role-accent-text   { color: var(--role-accent-soft); }
+.role-accent-border { border-color: var(--role-border); }
+.role-accent-bg     { background: var(--role-bg); }
+.role-accent-glow   { box-shadow: 0 0 20px var(--role-glow); }
+
+/* ── Stat bar animation ─────────────────────────────────────── */
+@keyframes bar-grow {
+  from { width: 0; }
+  to   { width: var(--bar-w, 60%); }
+}
+.bar-animate { animation: bar-grow 0.9s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* ── Pulse dot ──────────────────────────────────────────────── */
+@keyframes pulse-dot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.45; transform:scale(1.6); }
+}
+.pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+/* ── Hide scrollbar for horizontal scroll carousels ─────────── */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ── Cursor rules ───────────────────────────────────────────── */
+button, [role="button"], a, label[for], select { cursor: pointer; }
+input, textarea { cursor: text; }
+[disabled], [aria-disabled="true"] { cursor: not-allowed; opacity: 0.5; }
+
+/* ── Global interaction timing ──────────────────────────────── */
+*, *::before, *::after {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* ── Input / textarea base ──────────────────────────────────── */
+input, textarea, select {
+  background: #111827;
+  border: 1px solid #1F2A3D;
+  border-radius: 12px;
+  color: #F8FAFC;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  padding: 0.625rem 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #475569;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: rgba(255, 107, 26, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 107, 26, 0.08);
+}
+
+input:hover:not(:focus), textarea:hover:not(:focus), select:hover:not(:focus) {
+  border-color: #2D3A50;
+}
+
+/* ── Card interactive feel ──────────────────────────────────── */
+.card-interactive {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 24px rgba(255, 107, 26, 0.09);
+  border-color: rgba(255, 107, 26, 0.16);
+}
+.card-interactive:active {
+  transform: translateY(-1px);
+  transition-duration: 0.1s;
+}
+
+/* ── Button press feel (global) ─────────────────────────────── */
+button:active:not([disabled]) {
+  transform: scale(0.97) translateY(1px);
+  transition-duration: 0.08s;
+}
+
+/* ── Focus ring (keyboard nav) ──────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(255, 107, 26, 0.45);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ── Mobile tap feedback (no hover on touch) ─────────────────── */
+@media (hover: none) {
+  .card-interactive:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: #1F2A3D;
+  }
+  .card-interactive:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 16px rgba(255, 107, 26, 0.10);
+    border-color: rgba(255, 107, 26, 0.16);
+    transition-duration: 0.08s;
+  }
+  button:active:not([disabled]) {
+    transform: scale(0.96);
+    transition-duration: 0.08s;
+  }
+}
