@@ -25,7 +25,7 @@ export const SESSION_COOKIE_OPTIONS = Object.freeze({
   path: '/',
   httpOnly: true,
   secure: IS_PRODUCTION,
-  sameSite: 'lax',
+  sameSite: IS_PRODUCTION ? 'none' : 'lax',
   maxAge: SESSION_TTL_MS,
 })
 
