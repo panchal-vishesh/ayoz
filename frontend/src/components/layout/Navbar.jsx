@@ -458,14 +458,12 @@ function TopNav({ currentPath, onNavigate }) {
         <div className="grid grid-cols-3 items-center h-16 px-5 sm:px-10 select-none">
 
           {/* Left — hamburger + menu label */}
-          <button onClick={() => setOpen(v => !v)} className="flex items-center gap-3 group select-none justify-self-start">
+          <div onClick={() => setOpen(v => !v)} className="flex items-center gap-3 group select-none justify-self-start cursor-pointer">
             <HamburgerButton open={open} onClick={null} />
             <span className="hidden sm:block text-[0.65rem] uppercase tracking-[0.25em] font-medium text-slate-400 group-hover:text-white transition-colors duration-200 select-none">
               {open ? 'Close' : 'Menu'}
             </span>
-          </button>
-
-          {/* Center — Logo always perfectly centered */}
+          </div>
           <button onClick={() => onNavigate('/')} className="flex items-center gap-2.5 group justify-self-center">
             <motion.img
               src="https://res.cloudinary.com/dja9q2ii9/image/upload/e_bgremoval/v1774270172/ayoz_hqv2rf.png"
