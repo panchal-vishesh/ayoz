@@ -1,5 +1,9 @@
 import express from 'express'
 import helmet from 'helmet'
+import { createRequire } from 'node:module'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { existsSync } from 'node:fs'
 import { IS_PRODUCTION, PORT } from './config/env.js'
 import { sendJson } from './lib/http.js'
 import { applyCors } from './middleware/cors.js'
@@ -15,6 +19,8 @@ import { handleDashboardRoutes } from './routes/dashboard.js'
 import { handlePublicRoutes } from './routes/public.js'
 import { handleInitRoutes } from './routes/init.js'
 import { handleRestaurantRoutes } from './routes/restaurant.js'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 async function dispatchRoutes(req, res, port) {
   const pathname = req.path.replace(/\/+$/, '') || '/'
@@ -69,8 +75,6 @@ export function createApp(port = PORT) {
   app.use(createSessionMiddleware())
   app.use('/api/auth', authRateLimiter)
   app.use('/api/auth/login', loginRateLimiter)
-  // Temporarily disable CSRF protection for testing
-  // app.use('/api', csrfProtection)
 
   app.use(async (req, res, next) => {
     try {
@@ -80,17 +84,24 @@ export function createApp(port = PORT) {
     }
   })
 
+  // Serve frontend static files in production
+  if (IS_PRODUCTION) {
+    const frontendDist = join(__dirname, '../../frontend/dist')
+    if (existsSync(frontendDist)) {
+      app.use(express.static(frontendDist))
+      app.get('*', (req, res) => {
+        res.sendFile(join(frontendDist, 'index.html'))
+      })
+    }
+  }
+
   app.use((error, req, res, next) => {
     if (res.headersSent) {
       next(error)
       return
     }
 
-    // Log the error for debugging
     console.error('Server error:', error)
-    console.error('Error stack:', error.stack)
-    console.error('Request URL:', req.url)
-    console.error('Request method:', req.method)
 
     if (error?.code === 'EBADCSRFTOKEN') {
       sendJson(res, 403, { message: 'Invalid CSRF token.' })
