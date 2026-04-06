@@ -1,6 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import jwt from 'jsonwebtoken'
-import { getAuthContext } from '../lib/auth.js'
+import { signToken, verifyToken, getTokenFromRequest } from '../lib/jwt.js'
 import { parseBody, sendJson } from '../lib/http.js'
 import {
   createCustomerProfile,
@@ -13,25 +12,6 @@ import {
   verifyPassword,
 } from '../store/index.js'
 import db from '../services/database.js'
-import { JWT_SECRET, JWT_TTL } from '../config/env.js'
-
-function signToken(userId) {
-  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: JWT_TTL })
-}
-
-export function verifyToken(token) {
-  try {
-    return jwt.verify(token, JWT_SECRET)
-  } catch {
-    return null
-  }
-}
-
-export function getTokenFromRequest(req) {
-  const auth = req.get('Authorization') ?? ''
-  if (auth.startsWith('Bearer ')) return auth.slice(7)
-  return null
-}
 
 export async function handleAuthRoutes({ req, res, pathname }) {
   if (pathname === '/api/auth/csrf-token' && req.method === 'GET') {

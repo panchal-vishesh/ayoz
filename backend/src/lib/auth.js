@@ -1,5 +1,5 @@
 import db from '../services/database.js'
-import { getTokenFromRequest, verifyToken } from '../routes/auth.js'
+import { getTokenFromRequest, verifyToken } from '../lib/jwt.js'
 
 export function getIdentifierMatch(store, identifier) {
   const trimmed = String(identifier ?? '').trim()
