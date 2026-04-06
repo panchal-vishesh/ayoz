@@ -89,7 +89,7 @@ export function createApp(port = PORT) {
     const frontendDist = join(__dirname, '../../frontend/dist')
     if (existsSync(frontendDist)) {
       app.use(express.static(frontendDist))
-      app.get('*', (req, res) => {
+      app.get('*path', (req, res) => {
         res.sendFile(join(frontendDist, 'index.html'))
       })
     }
