@@ -21,11 +21,9 @@ export async function handleRestaurantRoutes({ req, res, pathname }) {
   // ── GET /api/restaurant/settings ──────────────────────────────────────────
   if (pathname === '/api/restaurant/settings' && method === 'GET') {
     try {
-      const userId = req.session?.userId
-      if (!userId) { sendJson(res, 401, { message: 'Not authenticated.' }, { request: req }); return true }
-      const user = await db.getUserById(userId)
-      if (!user || user.role !== 'restaurant') { sendJson(res, 403, { message: 'Access denied.' }, { request: req }); return true }
-      const notifications = await db.getRestaurantSettings(user.restaurant_id)
+      const auth = await getAuthContext(req, ['restaurant'])
+      if (auth.error) { sendJson(res, auth.statusCode, { message: auth.error }, { request: req }); return true }
+      const notifications = await db.getRestaurantSettings(auth.user.restaurant_id)
       sendJson(res, 200, { notifications }, { request: req })
       return true
     } catch (error) {
@@ -38,14 +36,12 @@ export async function handleRestaurantRoutes({ req, res, pathname }) {
   // ── PATCH /api/restaurant/settings ─────────────────────────────────────────
   if (pathname === '/api/restaurant/settings' && method === 'PATCH') {
     try {
-      const userId = req.session?.userId
-      if (!userId) { sendJson(res, 401, { message: 'Not authenticated.' }, { request: req }); return true }
-      const user = await db.getUserById(userId)
-      if (!user || user.role !== 'restaurant') { sendJson(res, 403, { message: 'Access denied.' }, { request: req }); return true }
+      const auth = await getAuthContext(req, ['restaurant'])
+      if (auth.error) { sendJson(res, auth.statusCode, { message: auth.error }, { request: req }); return true }
       const body = await parseBody(req)
-      const current = await db.getRestaurantSettings(user.restaurant_id)
+      const current = await db.getRestaurantSettings(auth.user.restaurant_id)
       const updated = { ...current, ...body }
-      const saved = await db.updateRestaurantSettings(user.restaurant_id, updated)
+      const saved = await db.updateRestaurantSettings(auth.user.restaurant_id, updated)
       sendJson(res, 200, { notifications: saved, message: 'Settings updated.' }, { request: req })
       return true
     } catch (error) {

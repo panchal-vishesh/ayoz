@@ -33,11 +33,7 @@ function buildCityPerformance(restaurants) {
     .sort((a, b) => Number(b.orders) - Number(a.orders))
 }
 
-export async function buildDashboard(req) {
-  const userId = req.session?.userId
-  if (!userId) return null
-
-  const user = await db.getUserById(userId)
+export async function buildDashboard(req, user) {
   if (!user) return null
 
   if (user.role === 'admin') {

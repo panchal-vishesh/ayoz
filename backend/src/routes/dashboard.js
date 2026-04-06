@@ -1,19 +1,18 @@
 import { sendJson } from '../lib/http.js'
 import { buildDashboard } from '../services/dashboard.js'
+import { getAuthContext } from '../lib/auth.js'
 
 export async function handleDashboardRoutes({ req, res, pathname }) {
-  if (pathname !== '/api/dashboard' || req.method !== 'GET') {
-    return false
-  }
+  if (pathname !== '/api/dashboard' || req.method !== 'GET') return false
 
   try {
-    if (!req.session?.userId) {
-      sendJson(res, 401, { message: 'Not authenticated.' }, { request: req })
+    const auth = await getAuthContext(req)
+    if (auth.error) {
+      sendJson(res, auth.statusCode, { message: auth.error }, { request: req })
       return true
     }
 
-    const dashboard = await buildDashboard(req)
-
+    const dashboard = await buildDashboard(req, auth.user)
     if (!dashboard) {
       sendJson(res, 401, { message: 'Not authenticated.' }, { request: req })
       return true
