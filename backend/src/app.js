@@ -1,18 +1,12 @@
 import express from 'express'
 import helmet from 'helmet'
-import { createRequire } from 'node:module'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { existsSync } from 'node:fs'
 import { IS_PRODUCTION, PORT } from './config/env.js'
 import { sendJson } from './lib/http.js'
 import { applyCors } from './middleware/cors.js'
-import {
-  authRateLimiter,
-  createSessionMiddleware,
-  csrfProtection,
-  loginRateLimiter,
-} from './middleware/security.js'
+import { authRateLimiter, loginRateLimiter } from './middleware/security.js'
 import { handleAdminRoutes } from './routes/admin.js'
 import { handleAuthRoutes } from './routes/auth.js'
 import { handleDashboardRoutes } from './routes/dashboard.js'
@@ -72,7 +66,6 @@ export function createApp(port = PORT) {
   app.use(applyCors)
   app.use(helmet())
   app.use(express.json({ limit: '1mb' }))
-  app.use(createSessionMiddleware())
   app.use('/api/auth', authRateLimiter)
   app.use('/api/auth/login', loginRateLimiter)
 

@@ -1,4 +1,5 @@
 import db from '../services/database.js'
+import { getTokenFromRequest, verifyToken } from '../routes/auth.js'
 
 export function getIdentifierMatch(store, identifier) {
   const trimmed = String(identifier ?? '').trim()
@@ -13,18 +14,15 @@ export function getIdentifierMatch(store, identifier) {
 }
 
 export async function getAuthContext(req, allowedRoles = null) {
-  const userId = req.session?.userId
+  const token = getTokenFromRequest(req)
+  if (!token) return { error: 'Authentication required', statusCode: 401 }
 
-  if (!userId) {
-    return { error: 'Authentication required', statusCode: 401 }
-  }
+  const payload = verifyToken(token)
+  if (!payload) return { error: 'Invalid or expired token', statusCode: 401 }
 
   try {
-    const user = await db.getUserById(userId)
-
-    if (!user) {
-      return { error: 'Authentication required', statusCode: 401 }
-    }
+    const user = await db.getUserById(payload.userId)
+    if (!user) return { error: 'Authentication required', statusCode: 401 }
 
     if (allowedRoles && !allowedRoles.includes(user.role)) {
       return { error: 'You do not have access to this action', statusCode: 403 }

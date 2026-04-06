@@ -1,15 +1,7 @@
 import { randomUUID } from 'node:crypto'
-import {
-  getAuthContext,
-  getIdentifierMatch,
-} from '../lib/auth.js'
+import jwt from 'jsonwebtoken'
+import { getAuthContext } from '../lib/auth.js'
 import { parseBody, sendJson } from '../lib/http.js'
-import {
-  destroySession,
-  getSessionExpiresAt,
-  regenerateSession,
-  saveSession,
-} from '../lib/session.js'
 import {
   createCustomerProfile,
   getPasswordValidationMessage,
@@ -21,10 +13,28 @@ import {
   verifyPassword,
 } from '../store/index.js'
 import db from '../services/database.js'
+import { JWT_SECRET, JWT_TTL } from '../config/env.js'
+
+function signToken(userId) {
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: JWT_TTL })
+}
+
+export function verifyToken(token) {
+  try {
+    return jwt.verify(token, JWT_SECRET)
+  } catch {
+    return null
+  }
+}
+
+export function getTokenFromRequest(req) {
+  const auth = req.get('Authorization') ?? ''
+  if (auth.startsWith('Bearer ')) return auth.slice(7)
+  return null
+}
 
 export async function handleAuthRoutes({ req, res, pathname }) {
   if (pathname === '/api/auth/csrf-token' && req.method === 'GET') {
-    // Return a dummy token since CSRF is disabled
     sendJson(res, 200, { csrfToken: 'disabled' }, { request: req })
     return true
   }
@@ -39,7 +49,6 @@ export async function handleAuthRoutes({ req, res, pathname }) {
       return true
     }
 
-    // Try to find user by email or login_id
     let user = null
     if (identifier.includes('@')) {
       user = await db.getUserByEmail(identifier)
@@ -60,15 +69,8 @@ export async function handleAuthRoutes({ req, res, pathname }) {
       user.password_hash = newHash
     }
 
-    await regenerateSession(req)
-    req.session.userId = user.id
-    await saveSession(req)
-
-    sendJson(res, 200, {
-      expiresAt: getSessionExpiresAt(req),
-      user: sanitizeUser(user),
-    })
-
+    const token = signToken(user.id)
+    sendJson(res, 200, { token, user: sanitizeUser(user) })
     return true
   }
 
@@ -85,23 +87,19 @@ export async function handleAuthRoutes({ req, res, pathname }) {
     }
 
     const passwordError = validatePasswordStrength(password)
-
     if (passwordError) {
       sendJson(res, 400, { message: getPasswordValidationMessage() }, { request: req })
       return true
     }
 
-    // Check if user already exists
     const existingUser = await db.getUserByEmail(email)
     if (existingUser) {
       sendJson(res, 409, { message: 'An account already exists with this email.' }, { request: req })
       return true
     }
 
-    // Generate unique login ID
     const allUsers = await db.getAllUsers()
-    const store = { users: allUsers } // For compatibility with existing function
-    const loginId = buildCustomerLoginId(store)
+    const loginId = buildCustomerLoginId({ users: allUsers })
 
     const userId = randomUUID()
     const user = {
@@ -114,44 +112,35 @@ export async function handleAuthRoutes({ req, res, pathname }) {
       password_hash: await hashPassword(password),
     }
 
-    // Create user and profile
     const createdUser = await db.createUser(user)
     const profileData = createCustomerProfile({ userId })
-    await db.createCustomerProfile({
-      ...profileData,
-      user_id: userId
-    })
+    await db.createCustomerProfile({ ...profileData, user_id: userId })
 
-    await regenerateSession(req)
-    req.session.userId = createdUser.id
-    await saveSession(req)
-
-    sendJson(res, 201, {
-      expiresAt: getSessionExpiresAt(req),
-      user: sanitizeUser(createdUser),
-    })
-
+    const token = signToken(createdUser.id)
+    sendJson(res, 201, { token, user: sanitizeUser(createdUser) })
     return true
   }
 
   if (pathname === '/api/auth/me' && req.method === 'GET') {
-    if (!req.session?.userId) {
+    const token = getTokenFromRequest(req)
+    if (!token) {
       sendJson(res, 401, { message: 'Not authenticated.' }, { request: req })
       return true
     }
 
+    const payload = verifyToken(token)
+    if (!payload) {
+      sendJson(res, 401, { message: 'Invalid or expired token.' }, { request: req })
+      return true
+    }
+
     try {
-      const user = await db.getUserById(req.session.userId)
+      const user = await db.getUserById(payload.userId)
       if (!user) {
-        // Clear invalid session
-        await destroySession(req, res)
         sendJson(res, 401, { message: 'User not found.' }, { request: req })
         return true
       }
-
-      sendJson(res, 200, {
-        user: sanitizeUser(user),
-      }, { request: req })
+      sendJson(res, 200, { user: sanitizeUser(user) }, { request: req })
     } catch (error) {
       console.error('Auth me error:', error)
       sendJson(res, 500, { message: 'Authentication error.' }, { request: req })
@@ -160,15 +149,8 @@ export async function handleAuthRoutes({ req, res, pathname }) {
   }
 
   if (pathname === '/api/auth/logout' && req.method === 'POST') {
-    // Always allow logout, even if not authenticated
-    try {
-      await destroySession(req, res)
-      sendJson(res, 200, { message: 'Signed out successfully.' }, { request: req })
-    } catch (error) {
-      console.error('Logout error:', error)
-      // Still return success even if session destruction fails
-      sendJson(res, 200, { message: 'Signed out successfully.' }, { request: req })
-    }
+    // JWT is stateless — client just drops the token
+    sendJson(res, 200, { message: 'Signed out successfully.' })
     return true
   }
 

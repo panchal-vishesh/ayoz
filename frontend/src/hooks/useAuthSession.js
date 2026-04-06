@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
-import { api } from '../api/client'
+import { api, getToken, clearToken } from '../api/client'
 
 const SESSION_USER_KEY = 'ayoz_session_user'
 
@@ -94,6 +94,12 @@ export function useAuthSession() {
 
   const checkSession = useCallback(async (isInitial = false) => {
     try {
+      if (!getToken()) {
+        setUser(null)
+        setConnectionState(CONNECTION_STATE.CONNECTED)
+        if (isInitial) setInitializing(false)
+        return
+      }
       const data = await api.getMe()
       setUser(data.user)
       setConnectionState(CONNECTION_STATE.CONNECTED)
@@ -150,12 +156,8 @@ export function useAuthSession() {
 
   const logout = async () => {
     clearTimers()
+    clearToken()
     setUser(null)
-    setConnectionState(CONNECTION_STATE.CONNECTED)
-    retryCountRef.current = 0
-    setRetryCount(0)
-    try { localStorage.removeItem(SESSION_USER_KEY) } catch {}
-    try { await api.logout() } catch {}
   }
 
   const manualRetry = useCallback(() => {
