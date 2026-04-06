@@ -50,10 +50,6 @@ export default function DashboardPage({ user, activeSection, onSectionChange, on
         if (ignore) return
         setError(err.message)
         toast?.(err.message, 'alert', 4000)
-        if (err.status === 401) {
-          await onLogout()
-          onNavigate('/login', { replace: true })
-        }
       } finally {
         if (!ignore) setLoading(false)
       }
