@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 const DEFAULT_SESSION_SECRET = 'change-me-in-production'
-const DEFAULT_ALLOWED_ORIGINS = ['http://localhost:5173']
+const DEFAULT_ALLOWED_ORIGINS = ['http://localhost:5173', 'https://ayoz.in']
 
 function parseOrigins(value) {
   return String(value ?? '')
