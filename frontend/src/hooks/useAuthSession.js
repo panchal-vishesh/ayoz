@@ -94,11 +94,22 @@ export function useAuthSession() {
 
   const checkSession = useCallback(async (isInitial = false) => {
     try {
+      // If no token, user is not logged in
       if (!getToken()) {
         setUser(null)
         setConnectionState(CONNECTION_STATE.CONNECTED)
         if (isInitial) setInitializing(false)
         return
+      }
+      // If we have cached user and token, trust it without a network call on initial load
+      if (isInitial) {
+        const cached = localStorage.getItem(SESSION_USER_KEY)
+        if (cached) {
+          setUser(JSON.parse(cached))
+          setConnectionState(CONNECTION_STATE.CONNECTED)
+          setInitializing(false)
+          return
+        }
       }
       const data = await api.getMe()
       setUser(data.user)
