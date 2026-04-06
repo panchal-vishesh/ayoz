@@ -100,8 +100,16 @@ export function useAuthSession() {
       try { localStorage.setItem(SESSION_USER_KEY, JSON.stringify(data.user)) } catch {}
     } catch (err) {
       if (err?.status === 0 || err?.status === undefined) {
-        setConnectionState(CONNECTION_STATE.DISCONNECTED)
-        scheduleRetry(0)
+        // On initial load, wait 60s silently (backend cold start) before showing banner
+        if (isInitial) {
+          retryTimerRef.current = setTimeout(() => {
+            setConnectionState(CONNECTION_STATE.DISCONNECTED)
+            scheduleRetry(0)
+          }, 60000)
+        } else {
+          setConnectionState(CONNECTION_STATE.DISCONNECTED)
+          scheduleRetry(0)
+        }
       } else {
         setUser(null)
         setConnectionState(CONNECTION_STATE.CONNECTED)
