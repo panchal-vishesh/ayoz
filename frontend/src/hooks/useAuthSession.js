@@ -110,6 +110,13 @@ export function useAuthSession() {
           setConnectionState(CONNECTION_STATE.DISCONNECTED)
           scheduleRetry(0)
         }
+      } else if (err?.status === 401) {
+        // Only clear user on 401 if there's no cached user (don't wipe a just-logged-in user)
+        const cached = localStorage.getItem(SESSION_USER_KEY)
+        if (!cached) {
+          setUser(null)
+          setConnectionState(CONNECTION_STATE.CONNECTED)
+        }
       } else {
         setUser(null)
         setConnectionState(CONNECTION_STATE.CONNECTED)
